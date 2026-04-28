@@ -63,3 +63,10 @@ All logo paths are referenced in:
 - Includes smooth scroll, micro-interactions, layered service cards, and scroll reveal animation.
 - Includes tasteful Framer Motion section reveals, hover motion, and premium hero/footer interactions.
 - If logos are missing from `/public`, images may show as broken until assets are added.
+
+## Current design palette
+- Burgundy Brown: `#3C0016`
+- Bright Red Plus: `#F92424`
+- Sand: `#D1C0A5`
+- Light text: `#F5EEE6`
+- Dark text: `#2A1A1A`

@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 const defaultTitle = "Backend Atelier | Operational clarity for modern brands";
-const awayTitle = "Come back to clarity";
+const awayTitle = "Your backend misses you";
 
 export default function VisibilityTitle() {
   useEffect(() => {

@@ -2,89 +2,92 @@
 
 import { motion } from "framer-motion";
 
-type Service = {
-  number: string;
-  title: string;
-  description: string;
-  tags: string[];
-};
-
-const services: Service[] = [
+const services = [
   {
     number: "01",
-    title: "Systems",
+    title: "Systems Strategy",
     description:
-      "Notion builds, dashboards, workflows, and SOPs that give teams internal clarity and calm execution.",
-    tags: ["Notion", "Dashboards", "Workflows", "SOPs", "Clarity"]
+      "Design a backend architecture that supports founder decision-making, team clarity, and sustainable scale.",
+    tags: ["Infrastructure", "Ops Architecture", "Priorities", "Delivery Rhythm"]
   },
   {
     number: "02",
-    title: "Shopify",
+    title: "Workflow Design",
     description:
-      "Collections, product organization, and backend cleanup that support better merchandising decisions.",
-    tags: ["Collections", "Product Data", "Backend Cleanup", "Merchandising"]
+      "Build clean workflow pathways across content, ecommerce, and operations so execution feels lighter.",
+    tags: ["Automation", "Task Flow", "Team Sync", "Launch Paths"]
   },
   {
     number: "03",
-    title: "Operations",
+    title: "Dashboard Intelligence",
     description:
-      "Launch support, project flow, and backend process design that keeps growth organized and sustainable.",
-    tags: ["Launches", "Team Flow", "Project Ops", "Processes"]
+      "Translate daily operational signals into useful dashboards that make strategic choices faster.",
+    tags: ["Metrics", "Visibility", "Founder Reporting", "Insights"]
   },
   {
     number: "04",
-    title: "Advisory",
+    title: "Notion Operations",
     description:
-      "Strategic founder support for brands that need stronger structure, sharper priorities, and clean execution.",
-    tags: ["Founder Advisory", "Structure", "Execution", "Prioritization"]
+      "Create premium Notion systems with structure, templates, and documentation your team will actually use.",
+    tags: ["Notion Build", "Templates", "Knowledge Base", "SOPs"]
+  },
+  {
+    number: "05",
+    title: "Founder Backend Support",
+    description:
+      "Ongoing strategic backend support for founders moving from reactive work to calm operations.",
+    tags: ["Advisory", "Prioritization", "Execution", "Leadership Ops"]
+  },
+  {
+    number: "06",
+    title: "Process Documentation",
+    description:
+      "Map and document the processes that keep launches, teams, and growth channels running smoothly.",
+    tags: ["Process Maps", "Documentation", "Training", "Consistency"]
   }
 ];
 
 export default function ServiceCards() {
   return (
-    <div className="relative mt-12 space-y-0 pb-8 md:pb-12">
-      {services.map((service, index) => {
-        const offsetClass = index % 2 === 0 ? "md:ml-8" : "md:-ml-6";
+    <div className="mt-14 grid gap-5 md:gap-6">
+      {services.map((service, index) => (
+        <motion.article
+          key={service.number}
+          initial={{ opacity: 0, y: 26 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.8, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+          whileHover={{ y: -6 }}
+          className={`group relative overflow-hidden rounded-[1.5rem] border border-[#2A1A1A]/15 bg-atelier-muted p-7 text-atelier-darkText shadow-card transition-shadow duration-300 hover:shadow-lift md:p-9 ${
+            index % 2 ? "md:ml-8" : "md:mr-8"
+          }`}
+        >
+          <div className="absolute right-4 top-4 h-16 w-16 rounded-full border border-atelier-highlight/30 opacity-50 transition-all duration-300 group-hover:scale-110 group-hover:border-atelier-highlight/65" />
 
-        return (
-          <motion.article
-            key={service.number}
-            initial={{ opacity: 0, y: 44 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
-            whileHover={{ y: -8, transition: { duration: 0.3 } }}
-            className={`group relative rounded-[1.35rem] border border-atelier-muted/45 px-6 py-7 md:px-10 md:py-10 shadow-card ${
-              index % 2 === 0 ? "bg-atelier-bg/90" : "bg-[#4A3028]/90"
-            } ${offsetClass} ${index !== 0 ? "-mt-4 md:-mt-8" : ""}`}
-          >
-            <div className="absolute inset-0 rounded-[1.35rem] ring-1 ring-transparent transition-all duration-300 group-hover:ring-atelier-highlight/35" />
+          <div className="relative z-10 flex items-start justify-between gap-6">
+            <span className="text-xs font-medium tracking-[0.22em] text-atelier-darkText/75">{service.number}</span>
+            <span className="rounded-full border border-atelier-darkText/20 px-3 py-1 text-[0.62rem] uppercase tracking-[0.14em] text-atelier-darkText/70">
+              Atelier Service
+            </span>
+          </div>
 
-            <div className="relative z-10 flex items-start justify-between gap-6">
-              <span className="text-xs tracking-[0.2em] text-atelier-highlight/90">({service.number})</span>
-              <span className="text-[0.65rem] uppercase tracking-[0.2em] text-atelier-muted/90">Service</span>
-            </div>
+          <h3 className="relative z-10 mt-5 max-w-3xl font-serif text-3xl leading-[0.96] md:text-[2.8rem]">{service.title}</h3>
+          <p className="relative z-10 mt-4 max-w-3xl text-sm leading-relaxed text-atelier-darkText/85 md:text-base">
+            {service.description}
+          </p>
 
-            <h3 className="relative z-10 mt-4 font-serif text-4xl leading-[0.95] md:text-[3.1rem]">
-              {service.title}
-            </h3>
-            <p className="relative z-10 mt-5 max-w-3xl text-sm leading-relaxed text-atelier-text/86 md:text-base">
-              {service.description}
-            </p>
-
-            <ul className="relative z-10 mt-7 flex flex-wrap gap-2.5">
-              {service.tags.map((tag) => (
-                <li
-                  key={tag}
-                  className="rounded-full border border-atelier-muted/55 bg-atelier-bg/45 px-3 py-1.5 text-[0.65rem] uppercase tracking-[0.14em] text-atelier-text/88"
-                >
-                  {tag}
-                </li>
-              ))}
-            </ul>
-          </motion.article>
-        );
-      })}
+          <ul className="relative z-10 mt-7 flex flex-wrap gap-2.5">
+            {service.tags.map((tag) => (
+              <li
+                key={tag}
+                className="rounded-full border border-atelier-darkText/20 bg-[#efe4d1] px-3 py-1.5 text-[0.66rem] uppercase tracking-[0.12em] text-atelier-darkText/80"
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
+        </motion.article>
+      ))}
     </div>
   );
 }
