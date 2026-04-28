@@ -9,10 +9,11 @@ const config: Config = {
     extend: {
       colors: {
         atelier: {
-          bg: "#402821",
-          text: "#F2F1EE",
-          muted: "#926E57",
-          highlight: "#F1E6AD"
+          bg: "#3C0016",
+          text: "#F5EEE6",
+          muted: "#D1C0A5",
+          highlight: "#F92424",
+          darkText: "#2A1A1A"
         }
       },
       fontFamily: {
