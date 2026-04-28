@@ -126,14 +126,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="services" className="section-shell section-space bg-atelier-bg">
-        <motion.div {...reveal} className="editorial-divider pt-12">
+      <section id="services" className="section-space overflow-visible bg-atelier-bg">
+        <motion.div {...reveal} className="section-shell editorial-divider pt-12">
           <p className="text-xs uppercase tracking-[0.2em] text-atelier-muted">Services</p>
           <h2 className="mt-5 max-w-4xl font-serif text-4xl leading-[0.92] md:text-[4.6rem]">
             Premium backend systems for brands ready to operate like a studio.
           </h2>
-          <ServiceCards />
         </motion.div>
+        <ServiceCards />
       </section>
 
       <section id="about" className="section-shell section-space bg-atelier-bg">

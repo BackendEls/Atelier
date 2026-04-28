@@ -49,17 +49,22 @@ const services = [
 
 export default function ServiceCards() {
   return (
-    <div className="mt-10">
+    <div className="mt-10" role="list" aria-label="Backend Atelier services">
       {services.map((service, index) => {
         const sandCard = index % 2 === 1;
 
         return (
-          <section
+          <motion.section
             key={service.number}
+            role="listitem"
+            aria-label={`${service.number} ${service.title}`}
             className={`relative h-[92vh] md:h-[96vh] ${index !== 0 ? "-mt-[12vh] md:-mt-[14vh]" : ""}`}
+            initial={{ opacity: 0.92 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
           >
             <article
-              className={`sticky top-20 mx-auto flex h-[82vh] w-[94vw] max-w-none flex-col overflow-hidden rounded-[2rem] border p-6 md:h-[84vh] md:p-12 ${
+              className={`sticky top-16 mx-auto flex h-[82vh] w-[94vw] max-w-none flex-col overflow-hidden rounded-[2rem] border p-6 md:top-20 md:h-[84vh] md:p-12 ${
                 sandCard
                   ? "border-[#2A1A1A]/15 bg-atelier-muted text-atelier-darkText"
                   : "border-atelier-muted/30 bg-atelier-bg text-atelier-text"
@@ -122,7 +127,7 @@ export default function ServiceCards() {
                 </div>
               </div>
             </article>
-          </section>
+          </motion.section>
         );
       })}
     </div>
