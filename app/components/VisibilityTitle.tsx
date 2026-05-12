@@ -2,8 +2,8 @@
 
 import { useEffect } from "react";
 
-const defaultTitle = "Backend Atelier | Operational clarity for modern brands";
-const awayTitle = "Your backend misses you";
+const defaultTitle = "Backend Atelier";
+const awayTitle = "Still building clarity?";
 
 export default function VisibilityTitle() {
   useEffect(() => {
