@@ -2,74 +2,121 @@
 
 import { motion } from "framer-motion";
 import AnimatedFooter from "./components/AnimatedFooter";
+import PremiumButton from "./components/PremiumButton";
 import ScrambleText from "./components/ScrambleText";
+import Section from "./components/Section";
+import SelectedSystemTile from "./components/SelectedSystemTile";
 import ServiceCards from "./components/ServiceCards";
 import VisibilityTitle from "./components/VisibilityTitle";
 
-const navItems = [
-  ["Work", "#work"],
-  ["About", "#about"],
-  ["Services", "#services"]
+const navLinks = [
+  { label: "Philosophy", href: "#philosophy" },
+  { label: "Systems", href: "#systems" },
+  { label: "Approach", href: "#approach" },
+  { label: "Contact", href: "#contact" }
+];
+
+const systems = [
+  ["Content Architecture", "Scalable CMS ecosystems and editorial workflows."],
+  ["Commerce Operations", "Structured product systems designed for modern e-commerce environments."],
+  ["Founder Dashboards", "Operational visibility for fast-moving businesses."],
+  ["Workflow Design", "Systems that reduce operational friction and increase clarity across teams."]
 ] as const;
 
 export default function Home() {
   return (
-    <main className="cine-root">
+    <main className="site-root">
       <VisibilityTitle />
 
-      <header className="cine-nav">
-        <a href="#top" className="cine-logo"><ScrambleText text="Backend Atelier*" speed={30} /></a>
-        <nav className="cine-center-nav" aria-label="Primary">
-          {navItems.map(([label, href]) => (
-            <a key={label} href={href}><ScrambleText text={label} speed={34} /></a>
+      <header className="nav-shell">
+        <a href="#top" className="logo-wrap" aria-label="Backend Atelier home">
+          <ScrambleText text="Backend Atelier" className="logo-text" speed={24} />
+        </a>
+        <nav className="nav-links" aria-label="Primary">
+          {navLinks.map((link) => (
+            <a key={link.label} href={link.href}>
+              <ScrambleText text={link.label} className="nav-link-text" speed={30} />
+            </a>
           ))}
         </nav>
-        <a href="#contact" className="cine-talk"><ScrambleText text="Let's Talk →" speed={28} /></a>
       </header>
 
-      <section id="top" className="hero-cinematic">
-        <img src="/assets/hero-overhead.jpg" alt="Overhead woman working" className="hero-image" />
-        <div className="hero-overlay" />
-        <div className="hero-content section-shell">
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          >
-            Digital<br />Systems<br />Atelier
-          </motion.h1>
-          <p className="hero-sub"><ScrambleText text="Designing the systems behind modern brands" speed={36} /></p>
-          <a className="hero-cta" href="#about"><ScrambleText text="Enter the Atelier" speed={30} /><span>↗</span></a>
-        </div>
+      <section id="top" className="hero-screen section-shell">
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className="section-label">Digital Systems Atelier</p>
+          <h1 className="hero-title">Designing the systems behind modern brands.</h1>
+          <p className="hero-copy">
+            Backend Atelier architects operational infrastructure, digital ecosystems, and structured workflows for founder-led businesses ready to scale with clarity.
+          </p>
+          <div className="hero-cta-row">
+            <PremiumButton href="#philosophy" text="Enter the Atelier" />
+            <PremiumButton href="#selected-systems" text="View Selected Systems" variant="secondary" />
+          </div>
+        </motion.div>
       </section>
 
-      <section id="about" className="intro-editorial section-shell">
-        <div className="intro-image-wrap">
-          <img src="/assets/editorial-bw.jpg" alt="Blurred person near studio wall" className="intro-image" />
-        </div>
-        <div className="intro-copy">
-          <p className="kicker">Backend Atelier*</p>
-          <h2>architects operational infrastructure, digital ecosystems, and structured workflows for founder-led businesses ready to scale with clarity.</h2>
-          <p>Beautiful brands break when their systems cannot scale.</p>
+      <Section id="philosophy" label="Philosophy" title="Beautiful brands break when their systems cannot scale.">
+        <div className="prose-block">
           <p>Most businesses focus on what is visible.</p>
-          <p>The brand.<br/>The campaign.<br/>The launch.</p>
-          <p>But behind every modern brand is an operational foundation determining how efficiently it can move, grow, and evolve.</p>
-          <p>Backend Atelier designs the systems behind the scenes: operational structure, digital workflows, commerce infrastructure, content ecosystems, and founder operations, built with clarity, elegance, and long-term scalability in mind.</p>
-          <a href="#services" className="line-btn"><ScrambleText text="Services →" speed={30} /></a>
+          <p>The brand.<br />The campaign.<br />The launch.</p>
+          <p>
+            But behind every modern brand is an operational foundation determining how efficiently it can move, grow, and evolve.
+          </p>
+          <p>
+            Backend Atelier designs the systems behind the scenes: operational structure, digital workflows, commerce infrastructure, content ecosystems, and founder operations, built with clarity, elegance, and long-term scalability in mind.
+          </p>
+        </div>
+      </Section>
+
+      <section id="systems" className="section-space">
+        <div className="section-shell">
+          <p className="section-label">What We Design</p>
+          <ServiceCards />
         </div>
       </section>
 
-      <section id="work" className="marquee-section">
-        <p>(3)</p>
-        <div className="marquee-track">
-          <span>What we do ← What we do → What we do ←</span>
-          <span>What we do ← What we do → What we do ←</span>
+      <Section
+        id="selected-systems"
+        label="Selected Systems"
+        title="A curated selection of operational structures, digital ecosystems, and backend frameworks designed for modern brands."
+      >
+        <div className="systems-grid">
+          {systems.map(([title, body]) => (
+            <SelectedSystemTile key={title} title={title} body={body} />
+          ))}
         </div>
-      </section>
+      </Section>
 
-      <section id="services" className="services-shell section-shell">
-        <ServiceCards />
-      </section>
+      <Section id="approach" label="Approach" title="Structure creates freedom.">
+        <div className="prose-block">
+          <p>Backend Atelier approaches operations as a design discipline.</p>
+          <p>
+            The goal is not simply efficiency. It is creating systems that feel intuitive, sustainable, scalable, and aligned with the way modern brands actually operate.
+          </p>
+          <p>
+            Every workflow, structure, and ecosystem is intentionally designed to reduce friction and create clarity behind the scenes.
+          </p>
+          <p>Because when operational foundations are built properly, brands move differently.</p>
+        </div>
+      </Section>
+
+      <Section id="founder" label="Founder" title="Built from the intersection of systems, commerce, and creative operations.">
+        <div className="prose-block">
+          <p>
+            Backend Atelier was founded through years of experience working across digital commerce, content ecosystems, product operations, and founder-led brand environments.
+          </p>
+          <p>
+            The studio exists to bridge the gap between operational intelligence and elevated digital experiences.
+          </p>
+          <p>
+            Combining systems thinking with a refined editorial approach, Backend Atelier helps modern brands build infrastructure designed not only to function well, but to scale intentionally.
+          </p>
+        </div>
+      </Section>
 
       <AnimatedFooter />
     </main>

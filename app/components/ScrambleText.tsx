@@ -1,23 +1,25 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type ScrambleTextProps = {
   text: string;
   className?: string;
   speed?: number;
+  scrambleChars?: string;
   triggerOnHover?: boolean;
 };
 
-export default function ScrambleText({ text, className, speed = 30, triggerOnHover = true }: ScrambleTextProps) {
+export default function ScrambleText({
+  text,
+  className,
+  speed = 28,
+  scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+  triggerOnHover = true
+}: ScrambleTextProps) {
   const [display, setDisplay] = useState(text);
   const rafRef = useRef<number | null>(null);
   const lastTimeRef = useRef(0);
-
-  const scrambleChars = useMemo(() => {
-    const letters = text.replace(/\s+/g, "").split("");
-    return letters.length ? letters : [" "];
-  }, [text]);
 
   useEffect(() => {
     setDisplay(text);
@@ -33,7 +35,7 @@ export default function ScrambleText({ text, className, speed = 30, triggerOnHov
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
 
     let frame = 0;
-    const total = Math.max(text.length * 3, 20);
+    const total = Math.max(text.length * 3, 24);
 
     const tick = (time: number) => {
       if (time - lastTimeRef.current < speed) {

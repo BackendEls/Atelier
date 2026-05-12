@@ -1,25 +1,23 @@
 import ScrambleText from "./ScrambleText";
-
-const links = [
-  ["Work", "#work"],
-  ["About", "#about"],
-  ["Services", "#services"]
-] as const;
+import PremiumButton from "./PremiumButton";
 
 export default function AnimatedFooter() {
   return (
-    <footer id="contact" className="footer-simple section-shell">
-      <div className="footer-inner">
-        <h2><ScrambleText text="Backend Atelier*" speed={28} /></h2>
-        <a className="footer-cta" href="mailto:hello@backendatelier.studio">
-          <ScrambleText text="Let's Talk →" speed={28} />
+    <footer id="contact" className="section-shell pb-16 pt-24">
+      <div className="footer-cinematic">
+        <p className="section-label">Contact</p>
+        <h2>Build with clarity.</h2>
+        <p>
+          For founder-led brands seeking structure, scalability, and intentional operational systems.
+        </p>
+        <PremiumButton href="mailto:hello@backendatelier.studio" text="Start a Conversation" />
+        <a className="footer-email" href="mailto:hello@backendatelier.studio">
+          hello@backendatelier.studio
         </a>
-        <a className="footer-email" href="mailto:hello@backendatelier.studio">hello@backendatelier.studio</a>
-        <nav className="footer-links" aria-label="Footer">
-          {links.map(([label, href]) => (
-            <a key={label} href={href}><ScrambleText text={label} speed={30} /></a>
-          ))}
-        </nav>
+        <div className="footer-marquee" aria-hidden="true">
+          <ScrambleText text="Backend Atelier" className="footer-wordmark" speed={26} />
+          <ScrambleText text="Backend Atelier" className="footer-wordmark" speed={26} />
+        </div>
       </div>
     </footer>
   );
