@@ -1,54 +1,41 @@
 "use client";
 
-import { motion } from "framer-motion";
-import ScrambleText from "./ScrambleText";
+import ServiceScene from "./ServiceScene";
 
 const services = [
   {
     number: "01",
     title: "Operational Ecosystems",
-    body: "We design the operational backbone that brings structure, clarity, and scalability to your business.",
-    image: "/assets/editorial-bw.jpg"
+    body: "Internal systems designed to bring clarity to the moving parts of modern businesses. From workflows and team operations to project architecture and process design, we create ecosystems that reduce friction and support sustainable growth."
   },
   {
     number: "02",
     title: "Digital Infrastructure",
-    body: "We build secure, flexible digital foundations that power growth and adapt to complexity.",
-    image: "/assets/hero-overhead.jpg"
+    body: "We structure the digital backbone behind modern brands, including CMS architecture, platform systems, content operations, backend workflows, and scalable organisational frameworks."
   },
   {
     number: "03",
     title: "Commerce Systems",
-    body: "From storefront to fulfilment, we architect commerce systems that are reliable, scalable, and built to convert.",
-    image: "/assets/editorial-bw.jpg"
+    body: "Product ecosystems designed for operational efficiency and elevated customer experiences, including catalogue organisation, merchandising structures, collection systems, search optimisation, and commerce operations."
   },
   {
     number: "04",
     title: "Founder Operations",
-    body: "We create systems that give founders visibility, control, and the freedom to focus on what matters.",
-    image: "/assets/hero-overhead.jpg"
+    body: "Designed for founders navigating growth, complexity, and scale. We build structured operational systems that create visibility, clarity, and space for higher-level decision making."
   }
 ];
 
 export default function ServiceCards() {
   return (
-    <div className="services-rows">
-      {services.map((service) => (
-        <motion.article
+    <div className="service-stack" role="list" aria-label="What we design">
+      {services.map((service, index) => (
+        <section
           key={service.number}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          className="service-row"
+          role="listitem"
+          className={`service-stack-item ${index !== 0 ? "service-stack-overlap" : ""}`}
         >
-          <p className="service-row-num">{service.number}</p>
-          <h3 className="service-row-title"><ScrambleText text={service.title} speed={32} /></h3>
-          <p className="service-row-body">{service.body}</p>
-          <div className="service-row-thumb-wrap">
-            <img src={service.image} alt={service.title} className="service-row-thumb" />
-          </div>
-        </motion.article>
+          <ServiceScene number={service.number} title={service.title} body={service.body} />
+        </section>
       ))}
     </div>
   );
