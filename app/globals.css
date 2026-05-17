@@ -157,6 +157,10 @@ body {
   @apply mt-10 flex gap-10 overflow-hidden whitespace-nowrap border-t pt-6;
   border-top-color: rgb(146 110 87 / 0.45);
 }
+.service-marquee {
+  background: #f9cccd;
+  color: #272423;
+}
 .footer-wordmark {
   font-family: "Nexa Slab", Georgia, serif;
   @apply text-6xl leading-none md:text-8xl;
