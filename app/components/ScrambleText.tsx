@@ -1,80 +1,84 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 type ScrambleTextProps = {
   text: string;
   className?: string;
   speed?: number;
-  scrambleChars?: string;
   triggerOnHover?: boolean;
 };
+
+const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 export default function ScrambleText({
   text,
   className,
-  speed = 28,
-  scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-  triggerOnHover = true
+  speed = 30,
+  triggerOnHover = true,
 }: ScrambleTextProps) {
   const [display, setDisplay] = useState(text);
-  const rafRef = useRef<number | null>(null);
-  const lastTimeRef = useRef(0);
+  const [width, setWidth] = useState<number>();
+  const ref = useRef<HTMLSpanElement>(null);
+  const intervalRef = useRef<NodeJS.Timeout>();
 
-  useEffect(() => {
-    setDisplay(text);
-  }, [text]);
+  const longest = useMemo(() => text, [text]);
+
+  useLayoutEffect(() => {
+    if (!ref.current) return;
+    setWidth(ref.current.offsetWidth);
+  }, [longest]);
 
   useEffect(() => {
     return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, []);
 
-  const runScramble = () => {
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+  const scramble = () => {
+    let iteration = 0;
 
-    let frame = 0;
-    const total = Math.max(text.length * 3, 24);
+    if (intervalRef.current) clearInterval(intervalRef.current);
 
-    const tick = (time: number) => {
-      if (time - lastTimeRef.current < speed) {
-        rafRef.current = requestAnimationFrame(tick);
-        return;
-      }
-
-      lastTimeRef.current = time;
-      frame += 1;
-
-      const settled = Math.floor((frame / total) * text.length);
-      const next = text
+    intervalRef.current = setInterval(() => {
+      const scrambled = text
         .split("")
-        .map((char, index) => {
-          if (char === " ") return " ";
-          if (index < settled) return text[index];
-          const rand = Math.floor(Math.random() * scrambleChars.length);
-          return scrambleChars[rand];
+        .map((letter, index) => {
+          if (index < iteration) {
+            return text[index];
+          }
+
+          return CHARS[Math.floor(Math.random() * CHARS.length)];
         })
         .join("");
 
-      setDisplay(next);
+      setDisplay(scrambled);
 
-      if (frame < total) {
-        rafRef.current = requestAnimationFrame(tick);
-      } else {
+      if (iteration >= text.length) {
+        clearInterval(intervalRef.current);
         setDisplay(text);
       }
-    };
 
-    rafRef.current = requestAnimationFrame(tick);
+      iteration += 1 / 3;
+    }, speed);
+  };
+
+  const reset = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    setDisplay(text);
   };
 
   return (
     <span
+      ref={ref}
       className={className}
-      onMouseEnter={triggerOnHover ? runScramble : undefined}
-      onFocus={triggerOnHover ? runScramble : undefined}
-      aria-label={text}
+      onMouseEnter={() => triggerOnHover && scramble()}
+      onMouseLeave={() => triggerOnHover && reset()}
+      style={{
+        display: "inline-block",
+        width: width ? `${width}px` : "auto",
+        whiteSpace: "nowrap",
+      }}
     >
       {display}
     </span>
