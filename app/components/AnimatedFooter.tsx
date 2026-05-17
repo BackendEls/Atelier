@@ -11,8 +11,8 @@ export default function AnimatedFooter() {
           For founder-led brands seeking structure, scalability, and intentional operational systems.
         </p>
         <PremiumButton href="mailto:hello@backendatelier.studio" text="Start a Conversation" />
-        <a className="footer-email" href="mailto:hello@backendatelier.studio">
-          hello@backendatelier.studio
+        <a className="footer-email" href="mailto:founder@backendatelier.com">
+          founder@backendatelier.com
         </a>
         <div className="footer-marquee" aria-hidden="true">
           <ScrambleText text="Backend Atelier" className="footer-wordmark" speed={26} />
